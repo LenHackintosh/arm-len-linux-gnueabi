@@ -8,7 +8,7 @@
     original, manufacturer supplied header file.  */
 
 /* statx-related definitions and declarations.  Linux version.
-   Copyright (C) 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2018-2020 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -35,11 +35,13 @@
 
 /* Use "" to work around incorrect macro expansion of the
    __has_include argument (GCC PR 80005).  */
-#if __glibc_has_include ("__linux__/stat.h")
-# include "linux/stat.h"
-# ifdef STATX_TYPE
-#  define __statx_timestamp_defined 1
-#  define __statx_defined 1
+#ifdef __has_include
+# if __has_include ("__linux__/stat.h")
+#  include "linux/stat.h"
+#  ifdef STATX_TYPE
+#   define __statx_timestamp_defined 1
+#   define __statx_defined 1
+#  endif
 # endif
 #endif
 
